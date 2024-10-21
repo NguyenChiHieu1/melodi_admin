@@ -1,0 +1,149 @@
+.signup {
+    height: 100vh;
+    background: #535052;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(rgb(0 0 0 / 73%), rgb(0 0 0 / 73%)), url('./image.jpg') no-repeat center center;
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn màn hình */
+    position: relative;
+    backdrop-filter: blur(8px);
+
+    .signup-content {
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: Vazirmatn;
+        width: 430px;
+        // background:  linear-gradient(rgb(0 0 0), rgb(0 0 0 / 73%)), url("./image.jpg") no-repeat;
+        // background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn bộ phần nền */
+        // background-position: center; /* Căn giữa hình ảnh */
+        background: rgba(255, 255, 255, 0.1); /* Nền bán trong suốt để nổi bật hơn */
+        border-radius: 10px;
+        backdrop-filter: blur(0px); /* Giữ nền bên trong rõ ràng */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+  
+      .signup-top {
+        width: 430px;
+        height: 200px;
+        border-radius: 0px 0px 40px 40px;
+        background: #412C3A;
+        display: flex;
+        // flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+
+        .logo {
+          width: 68px;
+          height: 77px;
+        }
+  
+        h1 {
+          font-size: 25px;
+          font-weight: 700;
+          color: #EE10B0;
+          line-height: 37.5px;
+          background: linear-gradient(90deg, #EE10B0 -7.89%, #0E9EEF 132.33%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+  
+      .signup-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding-top: 1rem;
+        .return-icon {
+            color: #0E9EEF;
+            i {
+                font-size: 40px;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.1);
+                    color: #61bef4;
+                }
+            }
+        }
+
+        h1 {
+          font-family: Vazirmatn;
+          font-size: 24px;
+          font-weight: 700;
+          color: #ffffff;
+          text-align: center;
+        }
+  
+        input  {
+            background: #612C4F;
+            &::placeholder {
+                color: #b3b1b1;
+            }
+            box-shadow: -1px 4px 4px 0px #612C4F;
+            font-size: 14px;
+            height: 42px;
+            border: none;
+            color: #ffffff;
+            // width: 100%;
+        }
+
+        .form-control.no-group {
+            width:350px;
+            height: 42px;
+            padding: 15px 29px 15px 18px;
+            gap: 10px;
+            border-radius: 20px;
+          }
+
+        .input-group {
+            width: 350px;
+            border: none;
+
+            .form-control {
+                border-radius: 20px 0 0 20px;
+                color: #ffffff;
+                border-right: #612C4F;
+                background: #612C4F;
+            }
+            i {
+                background: #612C4F;
+                color: #EE10B0;
+                border-radius: 0 20px 20px 0;
+                border: none;
+                box-shadow: -1px 4px 4px 0px #612C4F;
+                cursor: pointer;
+                &:hover {
+                    color: #ffffff;
+                }
+            }
+
+        }
+        .button-register {
+            text-align: right;
+
+            .btn-signup {
+                background-color: #EE10B0;
+                width: Fixed (179px)px;
+                height: 37px;
+                padding: 9px 32px 9px 32px;
+                gap: 10px;
+                border-radius: 5px;
+    
+                color: #ffffff;
+                border: none;
+                font-size: 14px;
+                font-weight: 800;
+                cursor: pointer;
+                margin-top: 1rem;
+        
+                &:hover {
+                    background-color: #ec37b9;
+                }
+            }
+        }
+        
+      }
+    }
+  }

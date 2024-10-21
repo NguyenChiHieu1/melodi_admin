@@ -1,0 +1,55 @@
+.loading-screen {
+    height: 100vh; /* Chiều cao toàn màn hình */
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    background: linear-gradient(rgb(0 0 0 / 73%), rgb(0 0 0 / 73%)), url('./image.jpg') no-repeat center center;
+    background-size: cover; /* Đảm bảo hình ảnh bao phủ toàn màn hình */
+    position: relative;
+    
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      
+      .logo {
+        width: 215px; /* Kích thước logo */
+        height: 242px;
+        margin-bottom: 20px; /* Khoảng cách dưới logo */
+      }
+  
+      .loading-text {
+        font-family: Vazirmatn, sans-serif;
+        color: #ffffff;
+        font-size: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        float: left;
+        margin-right: 20px;
+        font-weight: 700;
+        line-height: 31.25px;
+        text-align: left;
+
+      }
+  
+      .loading-spinner {
+        float: left;
+        width: 30px; /* Kích thước của SVG */
+        height: 30px;
+        animation: rotate 3s linear infinite; /* Thêm animation xoay cho SVG */
+      }
+    }
+  }
+  
+  /* Animation xoay cho SVG */
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
