@@ -180,18 +180,16 @@ const UpdateAlbum = () => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-1 w-[90%]"
+            className="flex flex-col justify-center gap-1 w-[90%] text-white"
           >
             {/* title- */}
             <div className="mb-4">
               <div className="flex items-center gap-2">
                 <i
-                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                   onClick={() => navigate(-1)}
                 ></i>
-                <h1 className="text-2xl font-bold text-gray-800 ml-[23rem]">
-                  Update Album
-                </h1>
+                <h1 className="text-xl font-medium ml-[23rem]">Update Album</h1>
               </div>
             </div>
             {/* Body */}
@@ -207,7 +205,7 @@ const UpdateAlbum = () => {
                 />
                 <label htmlFor="image" className="w-28">
                   <img
-                    className="w-28 cursor-pointer"
+                    className="w-28 cursor-pointer rounded-lg"
                     src={image || assets.upload_area} // Hiển thị ảnh từ máy tính hoặc ảnh mặc định
                     alt=""
                   />
@@ -217,7 +215,7 @@ const UpdateAlbum = () => {
                 <p>Select Songs</p>
                 <select
                   multiple
-                  className="p-2 border rounded-lg w-full"
+                  className="p-2 border rounded-lg w-full text-gray-800"
                   onChange={(e) => {
                     const selectedValues = Array.from(
                       e.target.selectedOptions,
@@ -252,7 +250,7 @@ const UpdateAlbum = () => {
                   name="name"
                   onChange={onChangeHandler}
                   value={value.name}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type album name here"
                 />
@@ -264,7 +262,7 @@ const UpdateAlbum = () => {
                   name="desc"
                   onChange={onChangeHandler}
                   value={value.desc}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type album description here"
                 />
@@ -273,7 +271,7 @@ const UpdateAlbum = () => {
                 <div className="flex flex-col gap-3 w-52">
                   <p>Status</p>
                   <select
-                    className="p-2 border rounded-lg w-full"
+                    className="p-2 border rounded-lg w-full text-gray-800"
                     onChange={(e) => {
                       setStatus(e.target.value);
                     }}
@@ -292,7 +290,7 @@ const UpdateAlbum = () => {
                   name="bg_colour"
                   onChange={onChangeHandler}
                   value={value.bg_colour}
-                  className="w-20 h-8"
+                  className="w-20 h-8 rounded-md"
                 />
               </div>
             </div>

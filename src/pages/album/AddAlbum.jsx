@@ -157,19 +157,19 @@ const AddAlbum = ({}) => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-1 w-[90%]"
+            className="flex flex-col justify-center gap-1 w-[90%] text-white"
           >
             <div className="mb-4">
               <div className="flex items-center gap-2">
                 {/* Return Icon */}
                 <i
-                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                   onClick={() => {
                     navigate(-1);
                   }}
                 ></i>
                 {/* Tiêu đề */}
-                <h1 className="text-2xl font-bold text-gray-800 ml-[23rem]">
+                <h1 className="text-xl font-medium  ml-[23rem]">
                   Create New Album
                 </h1>
               </div>
@@ -187,7 +187,7 @@ const AddAlbum = ({}) => {
                 />
                 <label htmlFor="image" className="w-24">
                   <img
-                    className="w-24 cursor-pointer"
+                    className="w-24 cursor-pointer rounded-lg"
                     src={
                       image ? URL.createObjectURL(image) : assets.upload_area
                     }
@@ -202,7 +202,7 @@ const AddAlbum = ({}) => {
                 <select
                   multiple
                   // value={value.songs}
-                  className="p-2 border rounded-lg w-full"
+                  className="p-2 border rounded-lg w-full text-gray-800"
                   onChange={(e) => {
                     const selectedValues = Array.from(
                       e.target.selectedOptions,
@@ -231,7 +231,7 @@ const AddAlbum = ({}) => {
                   name="name"
                   onChange={onChangeHandler}
                   value={value.name}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type album name here"
                 />
@@ -244,7 +244,7 @@ const AddAlbum = ({}) => {
                   name="desc"
                   onChange={onChangeHandler}
                   value={value.desc}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type album description here"
                 />
@@ -258,7 +258,7 @@ const AddAlbum = ({}) => {
                   name="bg_colour"
                   onChange={onChangeHandler}
                   value={value.bg_colour}
-                  className="w-20 h-8"
+                  className="w-20 h-8 rounded-md"
                 />
               </div>
             </div>

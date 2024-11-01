@@ -140,18 +140,16 @@ const UpdateAccount = () => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-2.5 w-[90%]"
+            className="flex flex-col justify-center gap-2.5 w-[90%] text-white"
           >
             <div className="mb-4 flex items-center gap-2">
               <i
-                className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                 onClick={() => {
                   navigate(-1);
                 }}
               ></i>
-              <h1 className="text-2xl font-bold text-gray-800 ml-[23rem]">
-                Update Account
-              </h1>
+              <h1 className="text-xl font-bold ml-[23rem]">Update Account</h1>
               <ToastContainer />
             </div>
 
@@ -167,7 +165,7 @@ const UpdateAccount = () => {
               />
               <label htmlFor="profile_image" className="w-24">
                 <img
-                  className="w-24 cursor-pointer"
+                  className="w-24 h-24 cursor-pointer rounded-lg"
                   src={image || assets.upload_area}
                   alt="Profile"
                 />
@@ -181,7 +179,7 @@ const UpdateAccount = () => {
                 name="username"
                 onChange={onChangeHandler}
                 value={value.username}
-                className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                className="bg-transparent outline-[#834A7D] border-2 p-2.5 w-full rounded-md"
                 type="text"
                 placeholder="Enter username"
               />
@@ -194,7 +192,7 @@ const UpdateAccount = () => {
                 name="email"
                 onChange={onChangeHandler}
                 value={value.email}
-                className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                className="bg-transparent outline-[#834A7D]  rounded-md border-2  p-2.5 w-full"
                 type="email"
                 placeholder="Enter email address"
               />
@@ -207,7 +205,7 @@ const UpdateAccount = () => {
                 name="password"
                 onChange={onChangeHandler}
                 value={value.password}
-                className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                className="bg-transparent outline-[#834A7D]  rounded-md border-2  p-2.5 w-full"
                 type="password"
                 placeholder="Enter new password"
               />
@@ -220,7 +218,7 @@ const UpdateAccount = () => {
                 name="roles"
                 onChange={onChangeHandler}
                 value={value.roles}
-                className="p-2 border rounded-lg w-[12rem]"
+                className="p-2 border rounded-lg w-[12rem] bg-[#412C3A] outline-[#834a7d]"
               >
                 <option value="66fbd508107a3d7571bf5570">Listener</option>
                 <option value="66fba3a49365526bc7e9bd95">Artist</option>
@@ -235,7 +233,7 @@ const UpdateAccount = () => {
                 name="status"
                 onChange={onChangeHandler}
                 value={value.status}
-                className="p-2 border rounded-lg w-[12rem]"
+                className="p-2 border rounded-lg w-[12rem] bg-[#412C3A] outline-[#834a7d]"
               >
                 <option value="pending">Pending</option>
                 <option value="approved">Approved</option>

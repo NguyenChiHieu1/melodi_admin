@@ -111,18 +111,18 @@ const AddSong = () => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-1 w-[90%]"
+            className="flex flex-col justify-center gap-1 w-[90%] text-white"
           >
             <div className="mb-4">
               <div className="flex items-center gap-2">
                 {/* Return Icon */}
                 <i
-                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                   onClick={() => {
                     navigate(-1);
                   }}
                 ></i>
-                <h1 className="text-2xl font-bold text-gray-800 ml-[23rem]">
+                <h1 className="text-xl font-medium ml-[23rem]">
                   Create New Song
                 </h1>
               </div>
@@ -140,7 +140,7 @@ const AddSong = () => {
                 />
                 <label htmlFor="image" className="w-24">
                   <img
-                    className="w-24 cursor-pointer"
+                    className="w-24 cursor-pointer rounded-lg"
                     src={
                       image ? URL.createObjectURL(image) : assets.upload_area
                     }
@@ -161,7 +161,7 @@ const AddSong = () => {
                 />
                 <label htmlFor="audio" className="w-24">
                   <img
-                    className="w-24 cursor-pointer"
+                    className="w-24 cursor-pointer rounded-lg"
                     src={audio ? assets.upload_added : assets.upload_area}
                     alt=""
                   />
@@ -177,7 +177,7 @@ const AddSong = () => {
                   name="title"
                   onChange={onChangeHandler}
                   value={value.title}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type song title here"
                 />
@@ -195,7 +195,7 @@ const AddSong = () => {
                     );
                     setValue({ ...value, category: selectedValues });
                   }}
-                  className="p-2 border rounded-lg w-full"
+                  className="p-2 border rounded-lg w-full bg-[#412C3A] outline-[#834a7d]"
                 >
                   {categories?.map((item, index) => (
                     <option key={index} value={item._id}>

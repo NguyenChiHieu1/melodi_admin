@@ -18,7 +18,7 @@ const Pagination = ({ page, count, perPage, path, theme }) => {
           <Link
             className={` ${
               theme === "light" ? "pagination-link-light " : "pagination-link "
-            }  ${page === i ? "!bg-indigo-700 !text-white " : ""} px-4 py-2 `}
+            }  ${page === i ? "!bg-[#93547e] !text-white " : ""} px-3 py-1 `}
             to={`/${path}/${i}`}
           >
             {i}
@@ -31,12 +31,12 @@ const Pagination = ({ page, count, perPage, path, theme }) => {
   const next = () => {
     if (page < totalLinks) {
       return (
-        <li className="pagination-li bg-white text-black">
+        <li className="pagination-li  text-white">
           <Link
             className={`${
               theme === "light"
                 ? "pagination-link-light"
-                : "pagination-link bg-white text-black"
+                : "pagination-link  text-white"
             }`}
             to={`/${path}/${page + 1}`}
           >
@@ -49,12 +49,12 @@ const Pagination = ({ page, count, perPage, path, theme }) => {
   const prev = () => {
     if (page > 1) {
       return (
-        <li className="pagination-li bg-white text-black">
+        <li className="pagination-li  text-white">
           <Link
             className={`${
               theme === "light"
                 ? "pagination-link-light "
-                : "pagination-link bg-white text-black"
+                : "pagination-link  text-white"
             }`}
             to={`/${path}/${page - 1}`}
           >
@@ -66,7 +66,7 @@ const Pagination = ({ page, count, perPage, path, theme }) => {
   };
   return (
     count > perPage && (
-      <ul className="flex mt-3 bg-white text-black">
+      <ul className="flex mt-3  text-white">
         {prev()}
         {links()}
         {next()}

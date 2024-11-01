@@ -7,7 +7,7 @@ const AdminHome = ({ children }) => {
     <div className="flex items-start min-h-screen">
       <div className="flex items-start min-h-screen w-full">
         <Sidebar />
-        <div className="flex-1 h-screen overflow-y-scroll bg-[#fffdfe] w-[85%]">
+        <div className="flex-1 h-screen overflow-y-scroll bg-[#412C3A] w-[85%]">
           <Navbar />
           <ToastContainer />
 

@@ -23,22 +23,23 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="navbar w-full border-b-2 border-gray-800 px-5 sm:px-12 py-4 text-lg bg-[#eaeaea]">
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-1">
-          <i className="bi bi-person-vcard-fill text-3xl "></i>
-          <p className="font-semibold capitalize">Name: {name}</p>
+    <div className="navbar w-full border-b border-gray-300 px-5 sm:px-12 py-4  text-gray-300 text-lg bg-[#6f4b63] flex justify-between items-center">
+      <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-2">
+          <i className="bi bi-person-vcard-fill text-2xl "></i>
+          <p className="font-normal capitalize ">Name: {name}</p>
         </div>
-        <div className="flex items-center space-x-1">
-          <i className="bi bi-universal-access-circle text-3xl"></i>
-          <p className="font-semibold capitalize">Role: {roles}</p>
+        <div className="flex items-center space-x-2">
+          <i className="bi bi-universal-access-circle text-2xl "></i>
+          <p className="font-normal capitalize ">Role: {roles}</p>
         </div>
       </div>
       <button
-        className="py-2 px-4 bg-[#4575d4] text-white rounded-md capitalize text-sm"
+        className="flex items-center py-2 px-4 bg-gray-700 hover:bg-gray-600 text-white rounded-md capitalize text-sm transition-all duration-150"
         onClick={adminLogout}
       >
-        {loading ? <Spinner /> : <i className="bi bi-power text-[20px]"></i>}
+        {loading ? <Spinner /> : <i className="bi bi-power text-[18px]"></i>}
+        <span className="ml-2">Logout</span>
       </button>
     </div>
   );

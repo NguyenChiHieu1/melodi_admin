@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { url } from "../../App";
 import AdminHome from "../../components/AdminHome";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ScreenHeader from "../../components/ScreenHeader";
 import Spinner from "../../components/Spinner";
 import Pagination from "../../components/Pagination";
@@ -12,6 +12,7 @@ import Excel from "../../utils/Excel";
 
 const ListAccount = () => {
   const { page = 1 } = useParams();
+  const navigate = useNavigate();
   const [countPage, setCountPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ const ListAccount = () => {
         ...(sortValue && { sort: sortValue }),
         ...(roles && { roles: roles }),
         page: page,
-        limit: 6,
+        limit: 5,
       };
 
       const queryParams = new URLSearchParams(params);
@@ -103,61 +104,90 @@ const ListAccount = () => {
   return (
     <AdminHome>
       <ScreenHeader>
-        <div className="flex items-center space-x-10 justify-between mb-1">
+        <div className="flex items-center space-x-10 mb-1 w-full">
           {/* Nút "Create" */}
-          <Link to="/manager-account/add">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-              <i className="bi bi-plus-lg text-lg"></i>
-            </button>
-          </Link>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 justify-between w-full">
             {/* Ô tìm kiếm */}
-            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+            <div className="flex items-center bg-slate-600 rounded-2xl overflow-hidden">
               <input
                 type="text"
-                placeholder="Search by username..."
+                placeholder="Search by user name..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="py-2 px-4 w-full outline-none"
+                className="py-2 px-4 w-80 text-white bg-slate-600 placeholder-gray-400 rounded-r-2xl h-full pl-2 focus:outline-none"
               />
               <div
-                className="px-3 py-1 text-gray-500 hover:text-gray-700 hover:bg-slate-300 cursor-pointer bg-slate-200"
+                className="px-3 py-1 bg-slate-600 cursor-pointer hover:bg-slate-500" // Thay đổi màu nền khi hover
                 onClick={onSearch}
               >
-                <i className="bi bi-search text-lg"></i>
+                <i className="bi bi-search text-lg text-white group-hover:text-gray-700"></i>
               </div>
             </div>
-            <div className="flex flex-end">
-              <select
-                value={status}
-                className="p-2 border rounded-lg w-52"
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="">Filter by account status</option>
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
-                <option value="rejected">Rejected</option>
-              </select>
+
+            <div className="relative group flex justify-center items-center w-24">
+              <div className="font-semibold text-3xl text-white rounded-full flex items-center justify-center border-white">
+                <i className="bi bi-filter "></i>
+              </div>
+              <div className="hidden z-50 absolute top-[30px] right-[40px] flex-col w-56 max-w-60 bg-[#744a65] rounded-lg group-hover:flex p-3">
+                <div className="flex justify-start items-start flex-col gap-2 text-white mb-2 ">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-music-note-beamed text-lg text-white"></i>
+                    <p className="font-bold text-white">Action</p>
+                  </div>
+                  <div
+                    className=" text-gray-200 w-full py-1 hover:bg-[#8f5e7e] rounded-md px-1 cursor-pointer"
+                    onClick={() => navigate("/manager-account/add")}
+                  >
+                    <p>Add new account</p>
+                  </div>
+                </div>
+                <div className="flex justify-start items-start flex-col gap-2 text-gray-200 mb-2 border-t-2">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-filter-square text-lg "></i>
+                    <p className="font-bold text-white">Filter</p>
+                  </div>
+                  <select
+                    value={status}
+                    className="bg-[#744a65] hover:bg-[#8f5e7e] rounded-md py-1 outline-[#834a7d]"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="">Filter by account status</option>
+                    <option value="pending">Status Pending</option>
+                    <option value="approved">Status Approved</option>
+                    <option value="rejected">Status Rejected</option>
+                  </select>
+                  <select
+                    value={roles}
+                    className=" bg-[#744a65] w-full hover:bg-[#8f5e7e] rounded-md py-1 outline-[#834a7d]"
+                    onChange={(e) => setRoles(e.target.value)}
+                  >
+                    <option value="">Filter by account roles</option>
+                    <option value="66fbd508107a3d7571bf5570">
+                      Roles Listener
+                    </option>
+                    <option value="66fba3a49365526bc7e9bd95">
+                      Roles Artist
+                    </option>
+                    <option value="66fba3189365526bc7e9bd92">
+                      Roles Leader
+                    </option>
+                  </select>
+                </div>
+                <div className="flex justify-start items-center gap-2 text-white mb-2 "></div>
+                <div className="flex justify-start items-start flex-col gap-2 text-white border-t-2">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-gear text-lg "></i>
+                    <p className="font-bold text-white">Others</p>
+                  </div>
+                  <Excel
+                    dataRow={dataForCSV}
+                    dataHeader={headers}
+                    nameExcel={"users"}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex flex-end">
-              <select
-                value={roles}
-                className="p-2 border rounded-lg w-52"
-                onChange={(e) => setRoles(e.target.value)}
-              >
-                <option value="">Filter by account roles</option>
-                <option value="66fbd508107a3d7571bf5570">Listener</option>
-                <option value="66fba3a49365526bc7e9bd95">Artist</option>
-                <option value="66fba3189365526bc7e9bd92">Leader</option>
-              </select>
-            </div>
-            {/* Nút "Export" */}
-            <Excel
-              dataRow={dataForCSV}
-              dataHeader={headers}
-              nameExcel={"users"}
-            />
           </div>
         </div>
       </ScreenHeader>
@@ -165,73 +195,78 @@ const ListAccount = () => {
         <Spinner />
       ) : data?.length > 0 ? (
         <div>
-          <table className="w-full bg-gray-200 rounded-md">
+          <div className="flex flex-row justify-start gap-2">
+            {/* <i classname="bi bi-card-text text-white text-xl"></i> */}
+            {/* <p className="text-white text-2xl ">List account</p> */}
+          </div>
+          <table className="w-full rounded-md">
             <thead>
-              <tr className="border-b border-gray-800 text-left bg-gray-300">
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Profile Image
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Username
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Email
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+              <tr className="border-b border-gray-500 text-left ">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300"></th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300"></th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Roles
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Status
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Email Verified
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Created Date
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Actions
-                </th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300 w-2"></th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((user) => (
-                <tr className="odd:bg-gray-100" key={user?._id}>
-                  <td className="p-3 text-sm text-gray-800">
+              {data?.map((user, index) => (
+                <tr
+                  className="text-white rounded-lg mb-2 group hover:bg-slate-700"
+                  key={user?._id}
+                >
+                  <td className="p-3 text-sm text-white mr-2"># {index + 1}</td>
+                  <td className="p-3 text-sm text-white flex flex-row items-center gap-2">
                     <img
-                      src={user?.profile_image}
+                      src={
+                        user?.profile_image
+                          ? user?.profile_image
+                          : "https://res.cloudinary.com/dr3f3acgx/image/upload/v1724351609/duxt59vn98gdxqcllctt.jpg"
+                      }
                       alt=""
-                      className="w-12 object-cover"
+                      className="w-12 h-12 object-cover rounded-lg"
                     />
+                    <div className="flex flex-col justify-center">
+                      <p className="font-bold">{user?.username}</p>
+                      <p className="text-gray-300">{user?.email}</p>
+                    </div>
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
-                    {user?.username}
-                  </td>
-                  <td className="p-3 text-sm text-gray-800">{user?.email}</td>
-                  <td className="p-3 text-sm text-gray-800 capitalize">
+                  <td className="p-3 text-sm text-white capitalize">
                     {user?.roles?.name || "N/A"}
                   </td>
-                  <td className="p-3 text-sm text-gray-800 capitalize">
+                  <td className="p-3 text-sm text-white capitalize">
                     {user?.status}
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
+                  <td className="p-3 text-sm text-white">
                     {user?.isEmailVerified ? "Yes" : "No"}
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
+                  <td className="p-3 text-sm text-white">
                     {new Date(user?.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="p-3 text-sm text-gray-800 flex space-x-2">
-                    <Link to={`/manager-account/update/${user?._id}`}>
-                      <button className="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-800">
-                        <i className="bi bi-pencil text-lg"></i>
+                  <td className="w-20">
+                    <div className="hidden gap-3 text-sm text-white group-hover:flex space-x-2 ">
+                      <Link to={`/manager-account/update/${user?._id}`}>
+                        <button className=" text-white rounded ">
+                          <i className="bi bi-pencil text-lg hover:text-[#EE10B0]"></i>
+                        </button>
+                      </Link>
+                      <button
+                        className=" text-white rounded "
+                        onClick={() => removeUser(user?._id, user?.username)}
+                      >
+                        <i className="bi bi-trash text-lg hover:text-[#EE10B0]"></i>
                       </button>
-                    </Link>
-                    <button
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      onClick={() => removeUser(user?._id, user?.username)}
-                    >
-                      <i className="bi bi-trash text-lg"></i>
-                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -239,14 +274,14 @@ const ListAccount = () => {
           </table>
           <Pagination
             page={parseInt(page)}
-            perPage={6}
+            perPage={5}
             count={countPage}
             path="manager-account"
             theme="light"
           />
         </div>
       ) : (
-        "No accounts found!"
+        <p className="text-white mt-3">No accounts found!</p>
       )}
     </AdminHome>
   );

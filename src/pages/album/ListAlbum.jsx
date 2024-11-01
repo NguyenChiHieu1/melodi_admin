@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { url } from "../../App";
 import AdminHome from "../../components/AdminHome";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ScreenHeader from "../../components/ScreenHeader";
 import Spinner from "../../components/Spinner";
 import Pagination from "../../components/Pagination";
@@ -12,6 +12,7 @@ import Excel from "../../utils/Excel";
 
 const ListAlbum = () => {
   const { page = 1 } = useParams();
+  const navigate = useNavigate();
   const [countPage, setCounPage] = useState(0);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ const ListAlbum = () => {
         ...(status && { status: status }),
         ...(sortValue && { sort: sortValue }),
         page: page,
-        limit: 4,
+        limit: 5,
         // fields: "name,artist,viewCount",
       };
 
@@ -132,73 +133,89 @@ const ListAlbum = () => {
   return (
     <AdminHome>
       <ScreenHeader>
-        <div className="flex items-center space-x-10 justify-between mb-1">
-          {/* Nút "create" */}
-          <Link to="/manager-album/add">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-              <i className="bi bi-plus-lg text-lg"></i>
-            </button>
-          </Link>
-
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-10 mb-1 w-full">
+          <div className="flex items-center space-x-4 justify-between w-full">
             {/* Ô tìm kiếm */}
-            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+            <div className="flex items-center bg-slate-600 rounded-2xl overflow-hidden">
               <input
                 type="text"
                 placeholder="Search by album name ..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="py-2 px-4 w-full outline-none"
+                className="py-2 px-4 w-80 text-white bg-slate-600 placeholder-gray-400 rounded-r-2xl h-full pl-2 focus:outline-none"
               />
               <div
-                className="px-3 py-1 text-gray-500 hover:text-gray-700 hover:bg-slate-300 cursor-pointer bg-slate-200"
+                className="px-3 py-1 bg-slate-600 cursor-pointer hover:bg-slate-500"
                 onClick={onSearch}
               >
-                <i className="bi bi-search text-lg"></i>
+                <i className="bi bi-search text-lg text-white group-hover:text-gray-700"></i>
               </div>
             </div>
-            <div className=" flex flex-end">
-              <select
-                value={status}
-                className="p-2 border rounded-lg w-52"
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <option value="">Filter by albums status</option>
-                <option value="pending">Status Pending</option>
-                <option value="approved">Status Approved</option>
-                <option value="rejected">Status Rejected</option>
-              </select>
+            <div className="relative group flex justify-center items-center w-24">
+              <div className="font-semibold text-3xl text-white rounded-full flex items-center justify-center border-white">
+                <i className="bi bi-filter "></i>
+              </div>
+              <div className="hidden z-50 absolute top-[30px] right-[40px] flex-col w-56 max-w-60 bg-[#744a65] rounded-lg group-hover:flex p-3">
+                <div className="flex justify-start items-start flex-col gap-2 text-white mb-2 ">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-music-note-beamed text-lg text-white"></i>
+                    <p className="font-bold text-white">Action</p>
+                  </div>
+                  <div
+                    className=" text-gray-200 w-full py-1 hover:bg-[#8f5e7e] rounded-md px-1 cursor-pointer"
+                    onClick={() => navigate("/manager-album/add")}
+                  >
+                    <p>Add new album</p>
+                  </div>
+                </div>
+                <div className="flex justify-start items-start flex-col gap-2 text-gray-200 mb-2 border-t-2">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-filter-square text-lg "></i>
+                    <p className="font-bold text-white">Filter</p>
+                  </div>
+                  <select
+                    value={status}
+                    className="bg-[#744a65] hover:bg-[#8f5e7e] rounded-md py-1 outline-[#834a7d]"
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="">Filter by albums status</option>
+                    <option value="pending">Status Pending</option>
+                    <option value="approved">Status Approved</option>
+                    <option value="rejected">Status Rejected</option>
+                  </select>
+                  <select
+                    value={sortValue}
+                    className=" bg-[#744a65] w-full hover:bg-[#8f5e7e] rounded-md py-1 outline-[#834a7d]"
+                    onChange={(e) => setSortValue(e.target.value)}
+                  >
+                    <option value="">Sort by views</option>
+                    <option value="viewCount">Ascending views</option>
+                    <option value="-viewCount">Descending views</option>
+                  </select>
+                  <select
+                    value={sortValue}
+                    className="bg-[#744a65] w-full hover:bg-[#8f5e7e] rounded-md py-1 outline-[#834a7d]"
+                    onChange={(e) => setSortValue(e.target.value)}
+                  >
+                    <option value="">Sort by download</option>
+                    <option value="downloadCount">Ascending downloads</option>
+                    <option value="-downloadCount">Descending downloads</option>
+                  </select>
+                </div>
+                <div className="flex justify-start items-center gap-2 text-white mb-2 "></div>
+                <div className="flex justify-start items-start flex-col gap-2 text-white border-t-2">
+                  <div className="flex flex-row items-center gap-2">
+                    <i className="bi bi-gear text-lg "></i>
+                    <p className="font-bold text-white">Others</p>
+                  </div>
+                  <Excel
+                    dataRow={dataForCSV}
+                    dataHeader={headers}
+                    nameExcel={"albums"}
+                  />
+                </div>
+              </div>
             </div>
-
-            <div className=" flex flex-end">
-              <select
-                value={sortValue}
-                className="p-2 border rounded-lg w-36"
-                onChange={(e) => setSortValue(e.target.value)}
-              >
-                <option value="">Sort by views</option>
-                <option value="viewCount">Ascending views</option>
-                <option value="-viewCount">Descending views</option>
-              </select>
-            </div>
-
-            <div className=" flex flex-end">
-              <select
-                value={sortValue}
-                className="p-2 border rounded-lg w-52"
-                onChange={(e) => setSortValue(e.target.value)}
-              >
-                <option value="">Sort by download</option>
-                <option value="downloadCount">Ascending downloads</option>
-                <option value="-downloadCount">Descending downloads</option>
-              </select>
-            </div>
-            {/* Nút "Export" */}
-            <Excel
-              dataRow={dataForCSV}
-              dataHeader={headers}
-              nameExcel={"albums"}
-            />
           </div>
         </div>
       </ScreenHeader>
@@ -206,104 +223,88 @@ const ListAlbum = () => {
         <Spinner />
       ) : data?.length > 0 ? (
         <div>
-          <table className="w-full bg-gray-200 rounded-md">
+          <table className="w-full rounded-md">
             <thead>
-              <tr className="border-b border-gray-800 text-left bg-gray-300">
+              <tr className="border-b border-gray-500 text-left">
                 {/* {roles === "leader" ? (
                   <th className="p-3 uppercase text-sm font-medium text-gray-600">
                     <input type="checkbox" id="myCheckbox" name="myCheckbox" />
                   </th>
                 ) : null} */}
-                <th className="p-3 uppercase text-sm font-medium text-gray-600 w-[10rem]">
-                  Image
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Album Name
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600 ">
-                  Artist
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300"></th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300 w-96"></th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Status
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Views
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Downloads
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Description
-                </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Total Song
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600 w-[7rem]">
+                <th className="p-3 capitalize text-sm font-normal text-gray-300">
                   Bg - Color
                 </th>
-                <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                  Action
-                </th>
+                <th className="p-3 capitalize text-sm font-normal text-gray-300 w-2"></th>
               </tr>
             </thead>
             <tbody>
               {data?.map((album, index) => (
-                <tr className="odd:bg-gray-100" key={album?._id}>
-                  {/* {roles === "leader" ? (
-                    <th className="p-3 uppercase text-sm font-medium text-gray-600">
-                      <input
-                        type="checkbox"
-                        id="myCheckbox"
-                        name="myCheckbox"
-                        onChange={}
-                        checked={album.checkStatus === 1 ? true : false}
-                      />
-                    </th>
-                  ) : null} */}
-                  <td className="p-3 text-sm text-gray-800 ">
-                    <img src={album?.image} alt="" className="h-16" />
+                <tr
+                  className="text-white rounded-lg mb-2 group hover:bg-slate-700"
+                  key={album?._id}
+                >
+                  <td className="p-3 text-sm text-white mr-2"># {index + 1}</td>
+                  <td className="p-3 text-sm text-white flex flex-row items-center gap-2 w-[500px]">
+                    <img
+                      src={album?.image}
+                      alt="Image album"
+                      className="w-12 h-12 object-cover rounded-lg"
+                    />
+                    <div className="flex flex-col justify-center ">
+                      <p className="font-bold truncate">{album?.name}</p>
+                      <p className="text-gray-300">
+                        {album?.artist.map((item) => item?.username).join(", ")}
+                      </p>
+                    </div>
                   </td>
-                  <td className="p-3 text-sm text-gray-800 w-80">
-                    {album?.name}
-                  </td>
-                  <td className="p-3 text-sm text-gray-800 w-64 max-w-[12rem] min-w-[3rem]">
-                    {album?.artist.map((item) => item?.username).join(", ")}
-                  </td>
-                  <td className="p-3 text-sm text-gray-800 capitalize">
+                  <td className="p-3 text-sm text-white capitalize ">
                     {album?.status}
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
+                  <td className="p-3 text-sm text-white capitalize">
                     {album?.viewCount}
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
+                  <td className="p-3 text-sm text-white capitalize">
                     {album?.downloadCount}
                   </td>
-                  <td className="p-3 text-sm text-gray-800 w-80">
-                    {album?.desc}
-                  </td>
-                  <td className="p-3 text-sm text-gray-800 ">
+                  <td className="p-3 text-sm text-white capitalize ">
                     {album?.songs.length}
                   </td>
-                  <td className="p-3 text-sm text-gray-800">
+                  <td className="p-3 text-sm text-white capitalize">
                     <input
                       type="color"
                       value={album?.bg_colour}
                       readOnly
-                      className="w-20 h-6 cursor-pointer"
+                      className="w-6 h-6 rounded-full"
                     />
                   </td>
-                  <td className="p-3 text-sm text-gray-800 flex space-x-2 mt-2">
-                    <Link to={`/manager-album/update/${album?._id}`}>
-                      <button className="bg-indigo-500 text-white px-3 py-1 rounded hover:bg-indigo-800">
-                        <i className="bi bi-pencil text-lg"></i>
+                  <td className="w-20">
+                    <div className="hidden gap-3 text-sm text-white group-hover:flex space-x-2">
+                      <Link to={`/manager-album/update/${album?._id}`}>
+                        <button className="text-white rounded">
+                          <i className="bi bi-pencil text-lg hover:text-[#EE10B0]"></i>
+                        </button>
+                      </Link>
+                      <button
+                        className="text-white rounded"
+                        onClick={() => removeAlbum(album?._id, album?.name)}
+                      >
+                        <i className="bi bi-trash text-lg hover:text-[#EE10B0]"></i>
                       </button>
-                    </Link>
-                    <button
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                      onClick={() => removeAlbum(album?._id, album?.name)}
-                    >
-                      <i className="bi bi-trash text-lg"></i>
-                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -311,14 +312,14 @@ const ListAlbum = () => {
           </table>
           <Pagination
             page={parseInt(page)}
-            perPage={4}
+            perPage={5}
             count={countPage}
             path="manager-album"
             theme="light"
           />
         </div>
       ) : (
-        "No albums!"
+        <p className="text-white mt-3">No albums!</p>
       )}
     </AdminHome>
   );

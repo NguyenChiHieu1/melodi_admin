@@ -132,17 +132,15 @@ const UpdateSong = () => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-1 w-[90%]"
+            className="flex flex-col justify-center gap-1 w-[90%] text-white"
           >
             <div className="mb-4">
               <div className="flex items-center gap-2">
                 <i
-                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                   onClick={() => navigate(-1)}
                 ></i>
-                <h1 className="text-2xl font-bold text-gray-800 ml-[23rem]">
-                  Update Song
-                </h1>
+                <h1 className="text-xl font-medium ml-[23rem]">Update Song</h1>
               </div>
             </div>
             <div className="flex flex-row gap-8 w-full">
@@ -157,7 +155,7 @@ const UpdateSong = () => {
                 />
                 <label htmlFor="image" className="w-28">
                   <img
-                    className="w-28 cursor-pointer"
+                    className="w-28 cursor-pointer rounded-lg"
                     src={image || "/path/to/default-image"} // Đường dẫn mặc định
                     alt=""
                   />
@@ -174,7 +172,7 @@ const UpdateSong = () => {
                 />
                 <label htmlFor="audio" className="w-28">
                   <img
-                    className="w-28 cursor-pointer"
+                    className="w-28 cursor-pointer rounded-lg"
                     src={audio ? assets.upload_added : assets.upload_area}
                     alt="Audio"
                   />
@@ -188,7 +186,7 @@ const UpdateSong = () => {
                   name="title"
                   onChange={onChangeHandler}
                   value={value.title}
-                  className="bg-transparent outline-green-600 border-2 border-gray-400 p-2.5 w-full"
+                  className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                   type="text"
                   placeholder="Type song title here"
                 />
@@ -198,7 +196,7 @@ const UpdateSong = () => {
                 <p>Select Categories</p>
                 <select
                   multiple
-                  className="p-2 border rounded-lg w-full"
+                  className="p-2 border rounded-lg w-full bg-[#412C3A] outline-[#834a7d]"
                   onChange={(e) => {
                     const selectedValues = Array.from(
                       e.target.selectedOptions,
@@ -218,7 +216,7 @@ const UpdateSong = () => {
               <div className="flex flex-col gap-3 w-52">
                 <p>Status</p>
                 <select
-                  className="p-2 border rounded-lg w-full"
+                  className="p-2 border rounded-lg w-full bg-[#412C3A] outline-[#834a7d]"
                   onChange={(e) =>
                     setValue({ ...value, status: e.target.value })
                   }

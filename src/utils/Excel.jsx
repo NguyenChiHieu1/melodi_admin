@@ -37,15 +37,11 @@ function Excel({ dataRow, dataHeader, nameExcel }) {
 
   // Sử dụng hàm trong sự kiện click của button
   return (
-    <button
-      onClick={generateExcelFile}
-      className="bg-green-500 text-white border border-green-500 hover:bg-gray-100 hover:text-black px-4 py-2 rounded"
-    >
-      <b className="flex flex-row gap-2">
-        <p className="">Excel</p>
-
+    <button onClick={generateExcelFile}>
+      <div className="flex flex-row gap-2  hover:bg-[#8f5e7e] rounded-md py-1 px-2">
+        <p className="">Export</p>
         <i className="bi bi-download text-lg"></i>
-      </b>
+      </div>
     </button>
   );
 }

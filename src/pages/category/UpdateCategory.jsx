@@ -77,15 +77,15 @@ const UpdateCategory = () => {
         <div className="flex items-center justify-center">
           <form
             onSubmit={onSubmitHandler}
-            className="flex flex-col justify-center gap-1 w-[90%]"
+            className="flex flex-col justify-center gap-1 w-[90%] text-white"
           >
             <div className="mb-4">
               <div className="flex items-center gap-2">
                 <i
-                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-600 hover:text-gray-800"
+                  className="bi bi-arrow-left text-3xl cursor-pointer text-gray-200 hover:text-gray-400"
                   onClick={() => navigate(-1)}
                 ></i>
-                <h1 className="text-2xl font-bold text-gray-800">
+                <h1 className="text-xl font-medium ml-[23rem]">
                   Update Category
                 </h1>
               </div>
@@ -96,7 +96,7 @@ const UpdateCategory = () => {
                 name="name"
                 onChange={onChangeHandler}
                 value={category.name}
-                className="bg-transparent outline-green-600 border-2 border-gray-400 p-2 w-full"
+                className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                 type="text"
                 placeholder="Enter category name"
               />
@@ -108,7 +108,7 @@ const UpdateCategory = () => {
                 name="description"
                 onChange={onChangeHandler}
                 value={category.description}
-                className="bg-transparent outline-green-600 border-2 border-gray-400 p-2 w-full"
+                className="bg-transparent outline-[#834a7d] rounded-md border-2 border-gray-400 p-2.5 w-full"
                 rows="4"
                 placeholder="Enter category description"
               ></textarea>
